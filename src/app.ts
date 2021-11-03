@@ -1,6 +1,10 @@
+import "dotenv/config";
 import express from "express";
-import "dotenv/config"
+import { router } from "./routes";
+
 const app = express();
+
+app.use(router);
 
 app.get("/github", (req, res) => {
   res.redirect(
@@ -9,9 +13,9 @@ app.get("/github", (req, res) => {
 });
 
 app.get("/signin/callback", (req, res) => {
-    const { code } = req.query
+  const { code } = req.query;
 
-    return res.json(code)
-})
+  return res.json(code);
+});
 
 app.listen(3003, () => console.log("Server Online!"));

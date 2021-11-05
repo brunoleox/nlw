@@ -1,7 +1,7 @@
-import { Router } from "express";
-import { AuthenticateUserController } from "./controllers/AuthenticateUserController";
-const router = Router();
+import { Router } from 'express'
+import { AuthenticateUserController } from './controllers/AuthenticateUserController'
+const router = Router()
 
-router.post("/authenticate", new AuthenticateUserController().handle);
+router.post('/authenticate', new AuthenticateUserController().handle)
 
-export { router };
+export { router }

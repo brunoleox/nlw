@@ -1,12 +1,26 @@
 import 'dotenv/config'
-import express from 'express'
-
+import { Server } from 'socket.io'
 import { router } from './routes'
+import express from 'express'
+import http from 'http'
+import cors from 'cors'
 
 const app = express()
+const serverHttp = http.createServer(app)
+const io = new Server(serverHttp, {
+  cors: {
+    origin: '*',
+  },
+})
+
+io.on('connection', (socket) => {
+  console.log(`Usuário conectado no socket ${socket.id}`)
+})
+
 app.use(express.json())
 
 app.use(router)
+app.use(cors)
 
 app.get('/github', (request, response) => {
   response.redirect(
@@ -20,4 +34,4 @@ app.get('/signin/callback', (request, response) => {
   return response.json(code)
 })
 
-app.listen(3003, () => console.log('Server Online!'))
+export { serverHttp, io }

@@ -6,6 +6,8 @@ import http from 'http'
 import cors from 'cors'
 
 const app = express()
+app.use(cors())
+
 const serverHttp = http.createServer(app)
 const io = new Server(serverHttp, {
   cors: {
@@ -20,7 +22,6 @@ io.on('connection', (socket) => {
 app.use(express.json())
 
 app.use(router)
-app.use(cors)
 
 app.get('/github', (request, response) => {
   response.redirect(
